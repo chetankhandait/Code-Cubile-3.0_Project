@@ -1,140 +1,70 @@
-import React, { useEffect, useState } from "react";
+import React, { useState } from "react";
 import axios from "axios";
-import ReactMarkdown from "react-markdown";
+import ReactMarkdown  from 'react-markdown'
+function User() {
+  const [report, setReport] = useState("");
+  const [loading, setLoading] = useState(false);
+  const [error, setError] = useState(null);
 
-const FinancialAdvisor = () => {
-  const [formData, setFormData] = useState({
-    name: "",
-    financial_goal: "",
-    risk_tolerance: "",
-    investment_amount: 0,
-    investment_timeline: "",
-    ticker_symbol: "",
-    timespan: "day",
-    limit: 30,
-  });
-
-  const [advice, setAdvice] = useState(null);
-  const [notification, setNotification] = useState("");
-
-  // Handle form input change
-  const handleChange = (e) => {
-    const { name, value } = e.target;
-    setFormData({
-      ...formData,
-      [name]: value,
-    });
-  };
-
-  // Handle form submission to fetch advice
-  const handleSubmit = async (e) => {
-    e.preventDefault();
-
-    const formData = {
-      name: "John Doe",
-      financial_goal: "Retirement",
-      risk_tolerance: "Moderate",
-      investment_amount: 50000,
-      investment_timeline: "10 years",
-      ticker_symbol: "AAPL",
-      timespan: "day",
-      limit: 30,
-      notification_threshold: 5.0, // percentage threshold for stock change notifications
-    };
-
+  // Function to run the workflow
+  const runWorkflow = async () => {
+    setLoading(true);
+    setError(null);
     try {
-      const response = await axios.post("http://localhost:8000/get-advice/", formData, {
-        headers: {
-          "Content-Type": "application/json",
-        },
-      });
-
-      // Set the advice response to the state
-      setAdvice(response.data.advice);
-
-    } catch (error) {
-      console.error("Error fetching advice:", error.response?.data);
+      const response = await axios.post("http://127.0.0.1:8000/run-workflow");
+      setReport(response.data.report);
+    } catch (err) {
+      setError("Error running the workflow. Please try again.");
+    } finally {
+      setLoading(false);
     }
   };
 
-  // Listen for price notifications using SSE
-  useEffect(() => {
-    const eventSource = new EventSource("http://localhost:8000/notifications/");
-
-    eventSource.onmessage = (event) => {
-      setNotification(event.data);
-    };
-
-    return () => {
-      eventSource.close();
-    };
-  }, []);
-
   return (
-    <div>
-      <h2>Get Personalized Financial Advice</h2>
-      <form onSubmit={handleSubmit}>
-        <input
-          type="text"
-          name="name"
-          placeholder="Your Name"
-          value={formData.name}
-          onChange={handleChange}
-        />
-        <input
-          type="text"
-          name="financial_goal"
-          placeholder="Financial Goal"
-          value={formData.financial_goal}
-          onChange={handleChange}
-        />
-        <input
-          type="text"
-          name="risk_tolerance"
-          placeholder="Risk Tolerance"
-          value={formData.risk_tolerance}
-          onChange={handleChange}
-        />
-        <input
-          type="number"
-          name="investment_amount"
-          placeholder="Investment Amount"
-          value={formData.investment_amount}
-          onChange={handleChange}
-        />
-        <input
-          type="text"
-          name="investment_timeline"
-          placeholder="Investment Timeline"
-          value={formData.investment_timeline}
-          onChange={handleChange}
-        />
-        <input
-          type="text"
-          name="ticker_symbol"
-          placeholder="Stock Ticker Symbol"
-          value={formData.ticker_symbol}
-          onChange={handleChange}
-        />
-        <button type="submit">Get Advice</button>
-      </form>
+    <div className="min-h-screen bg-gray-900 flex items-center justify-center">
+      <div className="w-full max-w-2xl p-8 bg-gray-800 rounded-lg shadow-lg">
+        <h1 className="text-3xl font-bold text-white mb-4 text-center">
+          Investment Research Workflow
+        </h1>
+        <p className="text-white text-lg mb-6 text-center">
+          Click the button below to generate an investment report.
+        </p>
 
-      {advice && (
-        <div>
-          <h3>Financial Advice</h3>
-          {/* Render advice as markdown */}
-          <ReactMarkdown>{advice}</ReactMarkdown>
+        <div className="flex justify-center">
+          <button
+            onClick={runWorkflow}
+            disabled={loading}
+            className={`${
+              loading
+                ? "bg-gray-500 cursor-not-allowed"
+                : "bg-blue-500 hover:bg-blue-600"
+            } text-white py-2 px-6 rounded-lg text-lg`}
+          >
+            {loading ? "Generating..." : "Run Workflow"}
+          </button>
         </div>
-      )}
 
-      {notification && (
-        <div>
-          <h3>Price Change Notification</h3>
-          <p>{notification}</p>
-        </div>
-      )}
+        {error && <p className="text-red-500 mt-4 text-center">{error}</p>}
+
+        {report && (
+          <div className="bg-gray-700 text-white p-4 mt-6 rounded-lg">
+            <h2 className="text-xl font-bold mb-2">Generated Report</h2>
+            
+
+            <pre className="whitespace-pre-wrap break-words">
+              <ReactMarkdown>
+
+
+              {report}
+              </ReactMarkdown>
+              
+              </pre>
+           
+          </div>
+        )}
+      </div>
     </div>
   );
-};
+}
 
-export default FinancialAdvisor;
+export default User;

@@ -29,6 +29,7 @@ assistant = Assistant(
     llm=gemini,
     description="You help people with their personalized financial goals by analyzing stock data.",
     debug_mode=True,
+
 )
 
 app = FastAPI()
@@ -156,7 +157,7 @@ def get_personalized_advice(profile: UserProfile, background_tasks: BackgroundTa
     - Available to Invest: ${profile.investment_amount}
     - Investment Timeline: {profile.investment_timeline}
 
-    Provide actionable advice based on {profile.name}'s current financial situation and preferences.
+    Provide actionable advice based on {profile.name}'s current financial situation and preferences.Summarize the points and give a breif overview in a single paragraph
     """
 
     # Generate advice using the Assistant
