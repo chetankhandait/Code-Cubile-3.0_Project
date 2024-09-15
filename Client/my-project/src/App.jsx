@@ -5,7 +5,7 @@ import Homepage from './pages/Homepage'
 import MultiStepForm from './components/MultiStepForm'
 import Portfolio from './pages/Portfolio'
 // import Portfolio from './pages/Portfolio'
-// import FinancialAdvisor from './User'
+import FinancialAdvisor from './User'
 
 function App() {
   return (
@@ -16,14 +16,14 @@ function App() {
       <Route path="/" element={<Homepage />} />
       <Route path="/multi-form" element={<MultiStepForm />} />
       <Route path="/portfolio" element={<Portfolio />} />
-      
+   
 
       </Routes>
 
     
  
       
-
+      <FinancialAdvisor/>
       {/* <FinancialAdvisor/> */}
       {/* <Portfolio/> */}
     </div>

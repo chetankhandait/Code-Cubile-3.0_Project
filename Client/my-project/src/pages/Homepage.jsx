@@ -1,17 +1,53 @@
-import { useEffect } from "react";
-
+import { useEffect, useState } from "react";
+import ReactMarkdown from 'react-markdown'
 const Homepage = () => {
-  // Function to open the modal using the dialog element
+  // State to store the user question and API response
+  const [question, setQuestion] = useState("");
+  const [response, setResponse] = useState("");
+  const [isLoading, setIsLoading] = useState(false);
+
+  // Function to open the modal
   const openModal = () => {
     document.getElementById("my_modal_4").showModal();
   };
+
+  // Function to close the modal
+  const closeModal = () => {
+    document.getElementById("my_modal_4").close();
+  };
+
+  // Handle input change for the question
+  const handleInputChange = (event) => {
+    setQuestion(event.target.value);
+  };
+
+  // Function to fetch the answer from the backend API
+  const fetchAnswer = async () => {
+    setIsLoading(true);
+    try {
+        const response = await fetch("http://localhost:8000/ask-question", {
+            method: "POST",
+            headers: {
+                "Content-Type": "application/json",
+            },
+            body: JSON.stringify({ question }),  // Correct format for request body
+        });
+
+        const data = await response.json();
+        setResponse(data.answer);
+    } catch (error) {
+        setResponse("Error fetching the answer.");
+    } finally {
+        setIsLoading(false);
+    }
+};
 
   // Set up the keyboard shortcut for Ctrl + K
   useEffect(() => {
     const handleKeyDown = (event) => {
       if (event.ctrlKey && event.key === "k") {
         event.preventDefault();
-        openModal(); // Open modal when Ctrl + K is pressed
+        openModal();
       }
     };
 
@@ -23,7 +59,7 @@ const Homepage = () => {
       window.removeEventListener("keydown", handleKeyDown);
     };
   }, []);
-
+console.log(response)
   return (
     <div className="min-h-screen flex flex-col items-center justify-center">
       <main className="flex flex-col items-center text-center">
@@ -45,7 +81,7 @@ const Homepage = () => {
         </button>
         <input
           type="text"
-          placeholder="Quick search..."
+          placeholder="Ask Question"
           className="border w-80 border-gray-300 rounded-lg p-2 max-w-md outline-none"
           onClick={openModal} // Opens the modal when the input is clicked
         />
@@ -54,8 +90,8 @@ const Homepage = () => {
       {/* Modal Structure */}
       <dialog id="my_modal_4" className="modal">
         <div className="modal-box w-11/12 h-96 max-w-5xl">
-          <div className="flex justify-between items-center">
-            <div className="flex items-center space-x-2">
+          <div className="flex justify-between items-center mb-4">
+            <div className="flex items-center space-x-2 w-full">
               <svg
                 xmlns="http://www.w3.org/2000/svg"
                 fill="none"
@@ -72,19 +108,38 @@ const Homepage = () => {
               </svg>
               <input
                 type="text"
-                placeholder="Search documentation"
+                placeholder="Type your question"
                 className="outline-none border-none text-lg w-full"
+                value={question}
+                onChange={handleInputChange} // Handle question input
               />
             </div>
           </div>
+
           <div className="text-center text-gray-400">
-            <p>No recent searches</p>
+            {isLoading ? (
+              <p>Loading...</p>
+            ) : response ? (
+              <p className="text-left">
+                <ReactMarkdown>
+
+                {response}
+                </ReactMarkdown>
+                </p>
+            ) : (
+              <p>No recent searches</p>
+            )}
           </div>
+
           <div className="absolute bottom-4 right-4 text-sm text-gray-500">
             <button
-              className="text-gray-500"
-              onClick={() => document.getElementById("my_modal_4").close()}
+              className="text-gray-500 mr-4 sticky "
+              onClick={fetchAnswer}
+              
             >
+              Submit Question
+            </button>
+            <button className="text-gray-500" onClick={closeModal}>
               Close
             </button>
           </div>
