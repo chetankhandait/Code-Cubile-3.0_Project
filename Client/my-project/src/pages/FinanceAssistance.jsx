@@ -1,8 +1,36 @@
-import React from "react";
+import React, { useState } from "react";
 import { FaHome, FaChartLine, FaDollarSign, FaUser } from "react-icons/fa";
 import { MdNotifications } from "react-icons/md";
 import NewsCarousel from "../components/NewsCrousel";
+import ReactMarkdown from 'react-markdown'
+import axios from "axios";
 const FinanceAssistance = () => {
+
+  const [question, setQuestion] = useState("");  // State to hold the question
+  const [reportData, setReportData] = useState(null);
+  const [loading, setLoading] = useState(false);
+
+  const fetchReport = async () => {
+    if (!question.trim()) {
+      alert("Please enter a question before submitting.");
+      return;
+    }
+
+    setLoading(true);
+    try {
+      const response = await axios.post("https://623f-103-199-225-157.ngrok-free.app/run-workflow", {
+        question, // Send the question as part of the request
+      });
+
+      console.log("JSON Response:", response.data);
+      setReportData(response.data);  // Set the report data
+    } catch (error) {
+      console.error("Error fetching report:", error);
+    } finally {
+      setLoading(false);
+    }
+  };
+
   return (
     <div className="flex flex-col lg:flex-row bg-gray-50 min-h-screen">
       {/* Sidebar */}
@@ -106,24 +134,70 @@ const FinanceAssistance = () => {
         <div>
           {/* Finance Assistant Section */}
           <div className="bg-white mt-6 p-6 rounded-lg shadow-md sticky">
-            <h3 className="text-xl font-bold mb-4">
-              Ask Your Finance Assistant
-            </h3>
-            <p className="text-sm text-gray-600 mb-4">
-              Get answers to your financial questions
-            </p>
+      <h3 className="text-xl font-bold mb-4">Ask Your Finance Assistant</h3>
+      <p className="text-sm text-gray-600 mb-4">
+        Get answers to your financial questions
+      </p>
 
-            <div className="flex">
-              <input
-                type="text"
-                className="flex-grow p-3 border border-gray-300 rounded-l-lg focus:outline-none"
-                placeholder="Ask a question..."
-              />
-              <button className="bg-black text-white p-3 px-10 rounded-r-lg">
-                Ask
-              </button>
-            </div>
-          </div>
+      <div className="flex">
+        <input
+          type="text"
+          value={question}
+          onChange={(e) => setQuestion(e.target.value)}  // Update question on input change
+          className="flex-grow p-3 border border-gray-300 rounded-l-lg focus:outline-none"
+          placeholder="Ask a question..."
+        />
+        <button
+          onClick={fetchReport}
+          className="bg-black text-white p-3 px-10 rounded-r-lg"
+          disabled={loading}
+        >
+          {loading ? "Loading..." : "Ask"}
+        </button>
+      </div>
+
+      {reportData && (
+        <div className="mt-6">
+          <h2 className="text-lg font-bold">Generated Report:</h2>
+          
+          {/* Stock Analyst Report */}
+          <section>
+            <h3 className="text-md font-semibold">Stock Analyst Report</h3>
+            <ReactMarkdown>
+              {reportData.stock_analyst_report.content}
+            </ReactMarkdown>
+            <h4 className="font-semibold">Company Information</h4>
+            <p>{reportData.stock_analyst_report.sections.company_info}</p>
+            <h4 className="font-semibold">Analyst Recommendations</h4>
+            <p>{reportData.stock_analyst_report.sections.analyst_recommendations}</p>
+            <h4 className="font-semibold">Company News</h4>
+            <p>{reportData.stock_analyst_report.sections.company_news}</p>
+          </section>
+
+          {/* Research Analyst Report */}
+          <section>
+            <h3 className="text-md font-semibold">Research Analyst Report</h3>
+            <ReactMarkdown>
+              {reportData.research_analyst_report.content}
+            </ReactMarkdown>
+            <h4 className="font-semibold">Rankings</h4>
+            <p>{reportData.research_analyst_report.sections.rankings}</p>
+            <h4 className="font-semibold">Investment Potential</h4>
+            <p>{reportData.research_analyst_report.sections.investment_potential}</p>
+          </section>
+
+          {/* Final Investment Report */}
+          <section>
+            <h3 className="text-md font-semibold">Final Investment Report</h3>
+            <ReactMarkdown>
+              {reportData.final_investment_report.content}
+            </ReactMarkdown>
+            <h4 className="font-semibold">Summary</h4>
+            <p>{reportData.final_investment_report.summary}</p>
+          </section>
+        </div>
+      )}
+    </div>
         </div>
       </div>
     </div>
