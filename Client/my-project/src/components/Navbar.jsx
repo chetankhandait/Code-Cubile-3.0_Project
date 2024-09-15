@@ -35,7 +35,7 @@ const Navbar = () => {
       {/* Navbar */}
       <header className="w-full bg-white fixed px-8 py-6 flex items-center justify-between">
         <div className="flex items-center">
-          <h1 className="text-2xl font-bold text-purple-500">CapitalCoach</h1>
+          <h1 className="text-2xl font-bold text-purple-500">Finance Buddy</h1>
         </div>
         <nav className="flex items-center space-x-4">
           <Link to={"/"} href="#" className="text-gray-800 hover:underline">

@@ -157,7 +157,7 @@ def run_workflow():
     try:
         # Run the investment workflow
         investment_workflow.print_response(markdown=True, stream=False)
-
+ 
         # Read the Stock Analyst report
         with open(stock_analyst_report, "r") as stock_report_file:
             stock_report = stock_report_file.read()

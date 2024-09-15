@@ -138,6 +138,46 @@ const FinanceAssistance = () => {
       <p className="text-sm text-gray-600 mb-4">
         Get answers to your financial questions
       </p>
+      {reportData && (
+  <div className="mt-6 grid grid-cols-1 gap-6 md:grid-cols-2 lg:grid-cols-3">
+    {/* Stock Analyst Report */}
+    <div className="p-4 border rounded-lg shadow-sm bg-white">
+      <h2 className="text-lg font-bold">Generated Report:</h2>
+      <h3 className="text-md font-semibold mt-4">Stock Analyst Report</h3>
+      <ReactMarkdown>
+        {reportData.stock_analyst_report.content}
+      </ReactMarkdown>
+      <h4 className="font-semibold mt-4">Company Information</h4>
+      <p>{reportData.stock_analyst_report.sections.company_info}</p>
+      <h4 className="font-semibold mt-4">Analyst Recommendations</h4>
+      <p>{reportData.stock_analyst_report.sections.analyst_recommendations}</p>
+      <h4 className="font-semibold mt-4">Company News</h4>
+      <p>{reportData.stock_analyst_report.sections.company_news}</p>
+    </div>
+
+    {/* Research Analyst Report */}
+    <div className="p-4 border rounded-lg shadow-sm bg-white">
+      <h3 className="text-md font-semibold">Research Analyst Report</h3>
+      <ReactMarkdown>
+        {reportData.research_analyst_report.content}
+      </ReactMarkdown>
+      <h4 className="font-semibold mt-4">Rankings</h4>
+      <p>{reportData.research_analyst_report.sections.rankings}</p>
+      <h4 className="font-semibold mt-4">Investment Potential</h4>
+      <p>{reportData.research_analyst_report.sections.investment_potential}</p>
+    </div>
+
+    {/* Final Investment Report */}
+    <div className="p-4 border rounded-lg shadow-sm bg-white">
+      <h3 className="text-md font-semibold">Final Investment Report</h3>
+      <ReactMarkdown>
+        {reportData.final_investment_report.content}
+      </ReactMarkdown>
+      <h4 className="font-semibold mt-4">Summary</h4>
+      <p>{reportData.final_investment_report.summary}</p>
+    </div>
+  </div>
+)}
 
       <div className="flex">
         <input
@@ -156,47 +196,7 @@ const FinanceAssistance = () => {
         </button>
       </div>
 
-      {reportData && (
-        <div className="mt-6">
-          <h2 className="text-lg font-bold">Generated Report:</h2>
-          
-          {/* Stock Analyst Report */}
-          <section>
-            <h3 className="text-md font-semibold">Stock Analyst Report</h3>
-            <ReactMarkdown>
-              {reportData.stock_analyst_report.content}
-            </ReactMarkdown>
-            <h4 className="font-semibold">Company Information</h4>
-            <p>{reportData.stock_analyst_report.sections.company_info}</p>
-            <h4 className="font-semibold">Analyst Recommendations</h4>
-            <p>{reportData.stock_analyst_report.sections.analyst_recommendations}</p>
-            <h4 className="font-semibold">Company News</h4>
-            <p>{reportData.stock_analyst_report.sections.company_news}</p>
-          </section>
-
-          {/* Research Analyst Report */}
-          <section>
-            <h3 className="text-md font-semibold">Research Analyst Report</h3>
-            <ReactMarkdown>
-              {reportData.research_analyst_report.content}
-            </ReactMarkdown>
-            <h4 className="font-semibold">Rankings</h4>
-            <p>{reportData.research_analyst_report.sections.rankings}</p>
-            <h4 className="font-semibold">Investment Potential</h4>
-            <p>{reportData.research_analyst_report.sections.investment_potential}</p>
-          </section>
-
-          {/* Final Investment Report */}
-          <section>
-            <h3 className="text-md font-semibold">Final Investment Report</h3>
-            <ReactMarkdown>
-              {reportData.final_investment_report.content}
-            </ReactMarkdown>
-            <h4 className="font-semibold">Summary</h4>
-            <p>{reportData.final_investment_report.summary}</p>
-          </section>
-        </div>
-      )}
+     
     </div>
         </div>
       </div>
