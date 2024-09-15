@@ -5,7 +5,7 @@ import MultiStepForm from "./components/MultiStepForm";
 import Portfolio from "./pages/Portfolio";
 import FinanceAssistance from "./pages/FinanceAssistance";
 // import Portfolio from './pages/Portfolio'
-import FinancialAdvisor from './User'
+// import FinancialAdvisor from './User'
 
 function App() {
   return (
