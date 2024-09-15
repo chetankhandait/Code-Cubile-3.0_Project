@@ -8,6 +8,10 @@ const FinanceAssistance = () => {
       {/* Sidebar */}
       <div className="w-full lg:w-1/4 h-full bg-white p-6 flex flex-col shadow-lg">
         {/* Navigation Links */}
+        <div className="my-2">
+          
+        <NewsCarousel />
+        </div>
         <nav className="mb-4 space-y-8">
           <ul className="flex flex-col gap-4">
             {/* Dashboard */}
@@ -62,7 +66,7 @@ const FinanceAssistance = () => {
         </nav>
 
         {/* Notifications Section */}
-        <NewsCarousel />
+      
       </div>
 
       {/* Dashboard */}

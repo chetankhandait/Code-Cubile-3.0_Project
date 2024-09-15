@@ -54,7 +54,7 @@ const NewsCarousel = () => {
   };
 
   return (
-    <div className="container rounded-lg px-4 mx-auto py">
+    <div className="container  mx-auto py rounded-lg ">
       <h1 className="text-xl font-bold mb-2">Latest News</h1>
       <Carousel
         className=""
@@ -66,10 +66,10 @@ const NewsCarousel = () => {
         {articles.map((article, index) => (
           <div
             key={index}
-            className="relative bg-white max-w-4xl mx-auto rounded-lg shadow-md overflow-hidden h-52"
+            className="relative bg-white max-w-4xl mx-auto rounded-lg shadow-md overflow-hidden h-52 "
           >
             <img
-              className="w-full h-44 object-cover"
+              className="w-full h-44 object-cover rounded-lg "
               src={article.urlToImage || "https://via.placeholder.com/400"}
               alt={article.title}
             />
