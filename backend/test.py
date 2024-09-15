@@ -20,10 +20,10 @@ key = "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"
 # Add CORS middleware
 app.add_middleware(
     CORSMiddleware,
-    allow_origins=["http://localhost:5173","https://code-cubile-3-0-project.vercel.app/"],  # Allow your React frontend
+    allow_origins=["http://localhost:5173", "https://code-cubile-3-0-project.vercel.app"],  # Allow your React frontend
     allow_credentials=True,
-    allow_methods=["*"],
-    allow_headers=["*"],
+    allow_methods=["*"],  # Allow all methods (GET, POST, etc.)
+    allow_headers=["*"],  # Allow all headers
 )
 
 # Define the paths for reports
