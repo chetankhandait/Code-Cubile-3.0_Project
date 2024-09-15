@@ -89,19 +89,16 @@ const Homepage = () => {
       <div className="min-h-screen flex flex-col items-center justify-center">
         <main className="flex flex-col items-center text-center">
           <h1 className="text-5xl md:text-6xl font-bold text-gray-900 mb-6">
-          Rapidly get personalized financial advice
-          <br />without ever leaving your dashboard.
-
+            Rapidly get personalized financial advice
+            <br />
+            without ever leaving your dashboard.
           </h1>
           <p className="text-lg text-gray-700 mb-6 px-10 mt-4">
-          An AI-powered finance assistant packed with real-time data, insights, and recommendations that can be tailored to your financial goals, directly within your workflow. Build your financial strategy seamlessly with up-to-date reports, market trends, and investment insights, all at your fingertips.
-
-
-
-
-
-
-
+            An AI-powered finance assistant packed with real-time data,
+            insights, and recommendations that can be tailored to your financial
+            goals, directly within your workflow. Build your financial strategy
+            seamlessly with up-to-date reports, market trends, and investment
+            insights, all at your fingertips.
           </p>
         </main>
 
