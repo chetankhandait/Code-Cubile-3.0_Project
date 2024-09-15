@@ -2,7 +2,6 @@ import React, { useEffect, useState } from "react";
 import axios from "axios";
 import Carousel from "react-multi-carousel";
 import "react-multi-carousel/lib/styles.css";
-import { Link } from "react-router-dom";
 
 const NewsCarousel = () => {
   const [articles, setArticles] = useState([]);
@@ -65,7 +64,7 @@ const NewsCarousel = () => {
         autoPlaySpeed={2000}
       >
         {articles.map((article, index) => (
-          <Link 
+          
           <div
             key={index}
             className="relative bg-white max-w-4xl mx-auto rounded-lg shadow-md overflow-hidden h-52 "
