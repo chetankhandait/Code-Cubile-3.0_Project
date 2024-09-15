@@ -32,7 +32,7 @@ const Homepage = () => {
       // Add user question to chat history
       setChatHistory([...chatHistory, { type: "user", text: question }]);
 
-      const response = await fetch("http://localhost:8000/ask-question", {
+      const response = await fetch("https://623f-103-199-225-157.ngrok-free.app/ask-question", {
         method: "POST",
         headers: {
           "Content-Type": "application/json",

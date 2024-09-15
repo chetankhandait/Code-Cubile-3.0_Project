@@ -9,7 +9,7 @@ const ReportComponent = () => {
   const fetchReport = async () => {
     setLoading(true);
     try {
-      const response = await axios.post("http://localhost:8000/run-workflow");
+      const response = await axios.post("https://623f-103-199-225-157.ngrok-free.app/run-workflow");
 
       // Console log the entire JSON response
       console.log("JSON Response:", response.data);
