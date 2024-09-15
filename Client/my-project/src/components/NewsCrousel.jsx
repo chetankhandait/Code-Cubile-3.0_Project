@@ -64,6 +64,7 @@ const NewsCarousel = () => {
         autoPlaySpeed={2000}
       >
         {articles.map((article, index) => (
+          
           <div
             key={index}
             className="relative bg-white max-w-4xl mx-auto rounded-lg shadow-md overflow-hidden h-52 "
