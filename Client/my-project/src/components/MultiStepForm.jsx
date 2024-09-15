@@ -1,136 +1,194 @@
 import React, { useState } from "react";
+import { motion } from "framer-motion";
 
 const MultiStepForm = () => {
   const [step, setStep] = useState(1);
+  const [formData, setFormData] = useState({
+    name: "",
+    email: "",
+    phone: "",
+    plan: "",
+    addons: "",
+  });
 
-  // Handles moving to the next step
-  const nextStep = () => {
-    setStep((prev) => (prev < 4 ? prev + 1 : prev));
+  const handleNext = () => setStep(step + 1);
+  const handlePrevious = () => setStep(step - 1);
+
+  const handleChange = (e) => {
+    const { name, value } = e.target;
+    setFormData((prevData) => ({
+      ...prevData,
+      [name]: value,
+    }));
   };
 
-  // Handles moving to the previous step
-  const prevStep = () => {
-    setStep((prev) => (prev > 1 ? prev - 1 : prev));
-  };
-
-  const renderStepContent = () => {
-    switch (step) {
-      case 1:
-        return (
-          <div className="p-4 min-h-56  rounded">
-            <div className="flex w-full gap-4">
-
-        
-            <label
-              htmlFor="firstname"
-              className="relative h-12  w-full block rounded-md border border-gray-200 shadow-sm focus-within:border-blue-600 focus-within:ring-1 focus-within:ring-blue-600"
-            >
-              <input
-                type="text"
-                id="firstname"
-                className="peer border-none bg-transparent placeholder-transparent focus:border-transparent focus:outline-none focus:ring-0"
-                placeholder="firstname"
-              />
-
-              <span className="pointer-events-none absolute start-2.5 top-0 -translate-y-1/2 bg-white text-xs text-gray-700 transition-all peer-placeholder-shown:top-1/2 p-1 peer-placeholder-shown:text-sm peer-focus:top-0 peer-focus:text-xs">
-                Firstname
-              </span>
-            </label> 
-            
-             <label
-              htmlFor="lastname"
-              className="relative h-12 w-full block rounded-md border border-gray-200 shadow-sm focus-within:border-blue-600 focus-within:ring-1 focus-within:ring-blue-600"
-            >
-              <input
-                type="text"
-                id="lastname"
-                className="peer border-none bg-transparent placeholder-transparent focus:border-transparent focus:outline-none focus:ring-0"
-                placeholder="lastname"
-              />
-
-              <span className="pointer-events-none absolute start-2.5 top-0 -translate-y-1/2 bg-white text-xs text-gray-700 transition-all peer-placeholder-shown:top-1/2 p-1 peer-placeholder-shown:text-sm peer-focus:top-0 peer-focus:text-xs">
-                Lastname
-              </span>
-            </label>
-
-          
-    </div> 
-     <label
-              htmlFor="Email"
-              className="relative h-12 my-4 w-full block rounded-md border border-gray-200 shadow-sm focus-within:border-blue-600 focus-within:ring-1 focus-within:ring-blue-600"
-            >
-              <input
-                type="email"
-                id="Email"
-                className="peer border-none bg-transparent placeholder-transparent focus:border-transparent focus:outline-none focus:ring-0"
-                placeholder="Email"
-              />
-
-              <span className="pointer-events-none absolute start-2.5 top-0 -translate-y-1/2 bg-white text-xs text-gray-700 transition-all peer-placeholder-shown:top-1/2 p-1 peer-placeholder-shown:text-sm peer-focus:top-0 peer-focus:text-xs">
-                Email
-              </span>
-            </label>
-
-          </div>
-        );
-      case 2:
-        return <div className="p-4  min-h-56 rounded">Step 2 Content</div>;
-      case 3:
-        return <div className="p-4  min-h-56 bg-gray-50 rounded">Step 3 Content</div>;
-      case 4:
-        return <div className="p-4  min-h-56 bg-gray-50 rounded">Step 4 Content</div>;
-      default:
-        return null;
-    }
-  };
+  const progress = (step / 4) * 100;
 
   return (
-    <div className="lg:pt-40 p-8">
-      <div className="max-w-4xl h-96 mx-auto my-auto mt-10 p-6 bg-white shadow-md rounded-lg">
-        {/* Progress Bar */}
-        <div className="flex justify-between items-center mb-8">
-          {Array.from({ length: 3 }, (_, i) => i + 1).map((item) => (
-            <div key={item} className="flex-1 flex justify-center items-center">
-              <div
-                className={`w-8 h-8 flex items-center justify-center rounded-full border-2 
-                ${
-                  step >= item
-                    ? "bg-purple-600 text-white"
-                    : "border-gray-300 text-gray-400"
-                }`}
+    <div className="flex flex-col md:flex-row w-full min-h-screen bg-gray-100 p-4 max-h-screen">
+      {/* Sidebar */}
+      <div className="w-full md:w-1/4 bg-gray-900 text-white rounded-lg p-4">
+        <div className="space-y-8">
+          <div
+            className={`flex items-center  ${
+              step === 1 ? "text-blue-500 " : ""
+            }`}
+          >
+            <span className="mr-2">Step 1</span> Your Info
+          </div>
+          <div
+            className={`flex items-center ${step === 2 ? "text-blue-500" : ""}`}
+          >
+            <span className="mr-2">Step 2</span> Select Plan
+          </div>
+          <div
+            className={`flex items-center ${step === 3 ? "text-blue-500" : ""}`}
+          >
+            <span className="mr-2">Step 3</span> Add-ons
+          </div>
+          <div
+            className={`flex items-center ${step === 4 ? "text-blue-500" : ""}`}
+          >
+            <span className="mr-2">Step 4</span> Summary
+          </div>
+        </div>
+      </div>
+
+      {/* Form Content */}
+      <div className="w-full md:w-3/4 bg-white rounded-lg p-8 shadow-md">
+        <motion.div
+          initial={{ width: 0 }}
+          animate={{ width: `${progress}%` }}
+          className="h-1 bg-blue-500 mb-4"
+        />
+
+        {step === 1 && (
+          <div>
+            <h2 className="text-2xl mb-4">Your Info</h2>
+            <input
+              type="text"
+              name="name"
+              value={formData.name}
+              onChange={handleChange}
+              placeholder="Name"
+              className="w-full p-2 border border-gray-300 mb-4 rounded-lg"
+            />
+            <input
+              type="email"
+              name="email"
+              value={formData.email}
+              onChange={handleChange}
+              placeholder="Email"
+              className="w-full p-2 border border-gray-300 mb-4 rounded-lg"
+            />
+            <input
+              type="text"
+              name="phone"
+              value={formData.phone}
+              onChange={handleChange}
+              placeholder="Phone Number"
+              className="w-full p-2 border border-gray-300 mb-4 rounded-lg"
+            />
+            <div className="flex justify-between">
+              <button
+                className="bg-gray-400 text-white px-4 py-2 rounded-lg cursor-not-allowed"
+                disabled
               >
-                {step > item ? "✓" : item}
-              </div>
-              {item < 4 && (
-                <div
-                  className={`h-1 flex-1 mx-2 ${
-                    step > item ? "bg-purple-600" : "bg-gray-300"
-                  }`}
-                />
-              )}
+                Previous
+              </button>
+              <button
+                onClick={handleNext}
+                className="bg-blue-500 text-white px-4 py-2 rounded-lg"
+              >
+                Next Step
+              </button>
             </div>
-          ))}
-        </div>
+          </div>
+        )}
 
-        {/* Form Content */}
-        <div className="mb-4">{renderStepContent()}</div>
+        {step === 2 && (
+          <div>
+            <h2 className="text-2xl mb-4">Select Plan</h2>
+            <select
+              name="plan"
+              value={formData.plan}
+              onChange={handleChange}
+              className="w-full p-2 border border-gray-300 mb-4 rounded-lg"
+            >
+              <option value="">Select your plan</option>
+              <option value="basic">Basic</option>
+              <option value="premium">Premium</option>
+            </select>
+            <div className="flex justify-between">
+              <button
+                onClick={handlePrevious}
+                className="bg-gray-500 text-white px-4 py-2 rounded-lg"
+              >
+                Previous
+              </button>
+              <button
+                onClick={handleNext}
+                className="bg-blue-500 text-white px-4 py-2 rounded-lg"
+              >
+                Next Step
+              </button>
+            </div>
+          </div>
+        )}
 
-        {/* Navigation Buttons */}
-        <div className="flex justify-between">
-          <button
-            onClick={prevStep}
-            disabled={step === 1}
-            className="px-4 py-2 text-white bg-black rounded disabled:opacity-50"
-          >
-            Previous
-          </button>
-          <button
-            onClick={nextStep}
-            className="px-4 py-2 text-white bg-purple-500 rounded"
-          >
-            {step === 4 ? "Finish" : "Next"}
-          </button>
-        </div>
+        {step === 3 && (
+          <div>
+            <h2 className="text-2xl mb-4">Add-ons</h2>
+            <textarea
+              name="addons"
+              value={formData.addons}
+              onChange={handleChange}
+              placeholder="Add-ons"
+              className="w-full p-2 border border-gray-300 mb-4 rounded-lg"
+            />
+            <div className="flex justify-between">
+              <button
+                onClick={handlePrevious}
+                className="bg-gray-500 text-white px-4 py-2 rounded-lg"
+              >
+                Previous
+              </button>
+              <button
+                onClick={handleNext}
+                className="bg-blue-500 text-white px-4 py-2 rounded-lg"
+              >
+                Next Step
+              </button>
+            </div>
+          </div>
+        )}
+
+        {step === 4 && (
+          <div>
+            <h2 className="text-2xl mb-4">Summary</h2>
+            <ul>
+              <li>Name: {formData.name}</li>
+              <li>Email: {formData.email}</li>
+              <li>Phone: {formData.phone}</li>
+              <li>Plan: {formData.plan}</li>
+              <li>Add-ons: {formData.addons}</li>
+            </ul>
+            <div className="flex justify-between mt-4">
+              <button
+                onClick={handlePrevious}
+                className="bg-gray-500 text-white px-4 py-2 rounded-lg"
+              >
+                Previous
+              </button>
+              <button
+                onClick={() => alert("Form submitted")}
+                className="bg-green-500 text-white px-4 py-2 rounded-lg"
+              >
+                Submit
+              </button>
+            </div>
+          </div>
+        )}
       </div>
     </div>
   );
