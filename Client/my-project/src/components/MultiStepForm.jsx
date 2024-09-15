@@ -33,26 +33,32 @@ const MultiStepForm = () => {
       <div className="w-full md:w-1/4 bg-gray-900 text-white rounded-lg p-4">
         <div className="space-y-8">
           <div
-            className={`flex items-center  ${
+            className={`flex items-center text-2xl  ${
               step === 1 ? "text-blue-500 " : ""
             }`}
           >
-            <span className="mr-2">Step 1</span> Your Info
+            Personalised Info
           </div>
           <div
-            className={`flex items-center ${step === 2 ? "text-blue-500" : ""}`}
+            className={`flex items-center text-2xl ${
+              step === 2 ? "text-blue-500" : ""
+            }`}
           >
-            <span className="mr-2">Step 2</span> Select Plan
+            Investment Details
           </div>
           <div
-            className={`flex items-center ${step === 3 ? "text-blue-500" : ""}`}
+            className={`flex items-center text-2xl ${
+              step === 3 ? "text-blue-500" : ""
+            }`}
           >
-            <span className="mr-2">Step 3</span> Add-ons
+            Market Analysis
           </div>
           <div
-            className={`flex items-center ${step === 4 ? "text-blue-500" : ""}`}
+            className={`flex items-center text-2xl ${
+              step === 4 ? "text-blue-500" : ""
+            }`}
           >
-            <span className="mr-2">Step 4</span> Summary
+            Summary
           </div>
         </div>
       </div>
@@ -146,7 +152,7 @@ const MultiStepForm = () => {
               What is your investment timeline?
             </label>
             <input
-              type="text"
+              type="number"
               name="investmentTimeline"
               value={formData.investmentTimeline}
               onChange={handleChange}
@@ -213,30 +219,37 @@ const MultiStepForm = () => {
         )}
 
         {step === 4 && (
-          <div>
+          <div className="overflow-y-scroll">
             <h2 className="text-2xl font-bold mb-4">Summary</h2>
-            <p>
-              <strong>Name:</strong> {formData.name}
-            </p>
-            <p>
-              <strong>Email:</strong> {formData.email}
-            </p>
-            <p>
-              <strong>Phone:</strong> {formData.phone}
-            </p>
-            <p>
-              <strong>Investment Amount:</strong> {formData.investmentAmount}
-            </p>
-            <p>
-              <strong>Stock Preference:</strong> {formData.stockPreference}
-            </p>
-            <p>
-              <strong>Investment Timeline:</strong>{" "}
-              {formData.investmentTimeline}
-            </p>
-            <p>
-              <strong>Market Analysis:</strong> {formData.marketAnalysis}
-            </p>
+            <div className="space-y-4">
+              <div className="flex gap-3">
+                <p className="border-2 w-full rounded-xl border-gray-100 p-3">
+                  <strong>Name:</strong> {formData.name}
+                </p>
+                <p className="border-2 w-full rounded-xl border-gray-100 p-3">
+                  <strong>Email:</strong> {formData.email}
+                </p>
+              </div>
+              <div className="flex gap-3">
+                <p className="border-2 w-full rounded-xl border-gray-100 p-3">
+                  <strong>Phone:</strong> {formData.phone}
+                </p>
+                <p className="border-2 w-full rounded-xl border-gray-100 p-3">
+                  <strong>Investment Amount:</strong>{" "}
+                  {formData.investmentAmount}
+                </p>
+              </div>
+              <p className="border-2 rounded-xl border-gray-100 p-3">
+                <strong>Stock Preference:</strong> {formData.stockPreference}
+              </p>
+              <p className="border-2 rounded-xl border-gray-100 p-3">
+                <strong>Investment Timeline:</strong>{" "}
+                {formData.investmentTimeline}
+              </p>
+              <p className="border-2 rounded-xl border-gray-100 p-3">
+                <strong>Market Analysis:</strong> {formData.marketAnalysis}
+              </p>
+            </div>
             <div className="flex justify-between mt-4">
               <button
                 onClick={handlePrevious}
