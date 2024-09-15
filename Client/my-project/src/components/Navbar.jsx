@@ -1,5 +1,6 @@
 import { useState } from "react";
 import StockNotification from "./Notification";
+import { Link } from "react-router-dom";
 
 const Navbar = () => {
   // Function to toggle the drawer by controlling the checkbox
@@ -8,17 +9,26 @@ const Navbar = () => {
     drawerCheckbox.checked = !drawerCheckbox.checked; // Toggle the checkbox state
   };
 
-
   const [notifications, setNotifications] = useState([
-    { id: 1, stockName: 'AAPL', currentPrice: 150.25, previousPrice: 145.00, percentageChange: 3.62 },
-    { id: 2, stockName: 'GOOGL', currentPrice: 2800.50, previousPrice: 2810.00, percentageChange: -0.34 },
+    {
+      id: 1,
+      stockName: "AAPL",
+      currentPrice: 150.25,
+      previousPrice: 145.0,
+      percentageChange: 3.62,
+    },
+    {
+      id: 2,
+      stockName: "GOOGL",
+      currentPrice: 2800.5,
+      previousPrice: 2810.0,
+      percentageChange: -0.34,
+    },
   ]);
 
   const removeNotification = (id) => {
     setNotifications(notifications.filter((n) => n.id !== id));
   };
-
-
 
   return (
     <div className="bg-white w-full fixed z-50">
@@ -28,18 +38,20 @@ const Navbar = () => {
           <h1 className="text-2xl font-bold text-purple-500">CapitalCoach</h1>
         </div>
         <nav className="flex items-center space-x-4">
-          <a href="#" className="text-gray-800 hover:underline">
-            Docs
-          </a>
-          <a href="#" className="text-gray-800 hover:underline">
-            Components
-          </a>
-          <a href="#" className="text-gray-800 hover:underline">
-            Blog
-          </a>
-          <a href="#" className="text-gray-800 hover:underline">
-            Showcase
-          </a>
+          <Link to={"/"} href="#" className="text-gray-800 hover:underline">
+            Home
+          </Link>
+          <Link
+            to={"/portfolio"}
+            href="#"
+            className="text-gray-800 hover:underline"
+          >
+            Portfolio
+          </Link>
+          <Link to={"/"} href="#" className="text-gray-800 hover:underline">
+            Dashboard
+          </Link>
+
           {/* Notification Icon that opens the drawer */}
           <div className="relative h-8 w-8" onClick={toggleDrawer}>
             <svg
@@ -75,18 +87,18 @@ const Navbar = () => {
           ></label>
           <div className="menu bg-base-200 text-base-content min-h-full w-96 p-4">
             <div className="">
-                <h1 className="text-xl font-bold mb-2 mx-1">Notifications:</h1>
-      {notifications.map((notification) => (
-        <StockNotification
-          key={notification.id}
-          stockName={notification.stockName}
-          currentPrice={notification.currentPrice}
-          previousPrice={notification.previousPrice}
-          percentageChange={notification.percentageChange}
-          onClose={() => removeNotification(notification.id)}
-        />
-      ))}
-    </div>
+              <h1 className="text-xl font-bold mb-2 mx-1">Notifications:</h1>
+              {notifications.map((notification) => (
+                <StockNotification
+                  key={notification.id}
+                  stockName={notification.stockName}
+                  currentPrice={notification.currentPrice}
+                  previousPrice={notification.previousPrice}
+                  percentageChange={notification.percentageChange}
+                  onClose={() => removeNotification(notification.id)}
+                />
+              ))}
+            </div>
           </div>
         </div>
       </div>

@@ -4,6 +4,7 @@ const Portfolio = () => {
   return (
     <div className="container mx-auto p-6 space-y-6">
       {/* Header Section */}
+      <h1 className="text-2xl font-bold">Investment Portfolio</h1>
       <div className="grid grid-cols-1 md:grid-cols-4 gap-6">
         <div className="bg-white p-4 rounded-lg shadow-md">
           <h3 className="text-gray-500">Total Balance</h3>
@@ -178,8 +179,13 @@ const Portfolio = () => {
           <h3 className="font-bold mb-4">Financial Tips</h3>
           <ul className="list-disc list-inside text-gray-600 space-y-2">
             <li>Consider increasing your emergency fund contributions.</li>
-            <li>You're under budget in transportation. Allocate it elsewhere.</li>
-            <li>Your investment portfolio is well-diversified. Keep up the good work!</li>
+            <li>
+              You're under budget in transportation. Allocate it elsewhere.
+            </li>
+            <li>
+              Your investment portfolio is well-diversified. Keep up the good
+              work!
+            </li>
           </ul>
         </div>
       </div>

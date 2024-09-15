@@ -3,6 +3,7 @@ import ReactMarkdown from "react-markdown";
 import { Link } from "react-router-dom";
 import { FiSend } from "react-icons/fi";
 import { RxCross2 } from "react-icons/rx";
+import Navbar from "../components/Navbar";
 
 const Homepage = () => {
   // State to store the user question, API response, and chat history
@@ -32,13 +33,16 @@ const Homepage = () => {
       // Add user question to chat history
       setChatHistory([...chatHistory, { type: "user", text: question }]);
 
-      const response = await fetch("https://623f-103-199-225-157.ngrok-free.app/ask-question", {
-        method: "POST",
-        headers: {
-          "Content-Type": "application/json",
-        },
-        body: JSON.stringify({ question }), // Correct format for request body
-      });
+      const response = await fetch(
+        "https://623f-103-199-225-157.ngrok-free.app/ask-question",
+        {
+          method: "POST",
+          headers: {
+            "Content-Type": "application/json",
+          },
+          body: JSON.stringify({ question }), // Correct format for request body
+        }
+      );
 
       const data = await response.json();
 
@@ -81,6 +85,7 @@ const Homepage = () => {
   console.log(chatHistory);
   return (
     <>
+      <Navbar />
       <div className="min-h-screen flex flex-col items-center justify-center">
         <main className="flex flex-col items-center text-center">
           <h1 className="text-5xl md:text-6xl font-bold text-gray-900 mb-6">
