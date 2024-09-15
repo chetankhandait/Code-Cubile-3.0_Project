@@ -145,7 +145,7 @@ const FinanceAssistance = () => {
           value={question}
           onChange={(e) => setQuestion(e.target.value)}  // Update question on input change
           className="flex-grow p-3 border border-gray-300 rounded-l-lg focus:outline-none"
-          placeholder="Ask a question..."
+          placeholder="Ask a question... "
         />
         <button
           onClick={fetchReport}

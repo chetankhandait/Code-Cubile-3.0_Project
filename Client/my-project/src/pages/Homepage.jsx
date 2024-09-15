@@ -84,14 +84,19 @@ const Homepage = () => {
       <div className="min-h-screen flex flex-col items-center justify-center">
         <main className="flex flex-col items-center text-center">
           <h1 className="text-5xl md:text-6xl font-bold text-gray-900 mb-6">
-            Rapidly build modern websites <br /> without ever leaving your HTML.
+          Rapidly get personalized financial advice
+          <br />without ever leaving your dashboard.
+
           </h1>
-          <p className="text-lg text-gray-700 mb-6">
-            A utility-first CSS framework packed with classes like
-            <span className="text-purple-500"> flex, pt-4, text-center </span>
-            and
-            <span className="text-purple-500"> rotate-90 </span>
-            that can be composed to build any design, directly in your markup.
+          <p className="text-lg text-gray-700 mb-6 px-10 mt-4">
+          An AI-powered finance assistant packed with real-time data, insights, and recommendations that can be tailored to your financial goals, directly within your workflow. Build your financial strategy seamlessly with up-to-date reports, market trends, and investment insights, all at your fingertips.
+
+
+
+
+
+
+
           </p>
         </main>
 
@@ -103,7 +108,7 @@ const Homepage = () => {
           </Link>
           <input
             type="text"
-            placeholder="Ask Question"
+            placeholder="Ask Question Ctrl + K"
             className="border w-80 border-gray-300 rounded-lg p-2 max-w-md outline-none"
             onClick={openModal} // Opens the modal when the input is clicked
           />
@@ -143,7 +148,7 @@ const Homepage = () => {
                 <div className="flex items-center border rounded-lg px-4 py- bg-gray-100">
                   <input
                     type="text"
-                    placeholder="Ask your question"
+                    placeholder="Ask your question   "
                     className="outline-none border-none text-lg w-full p-2 bg-gray-100"
                     value={question}
                     onChange={handleInputChange} // Handle question input
