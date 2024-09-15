@@ -7,8 +7,10 @@ const MultiStepForm = () => {
     name: "",
     email: "",
     phone: "",
-    plan: "",
-    addons: "",
+    investmentAmount: "",
+    stockPreference: "",
+    investmentTimeline: "",
+    marketAnalysis: "",
   });
 
   const handleNext = () => setStep(step + 1);
@@ -64,32 +66,37 @@ const MultiStepForm = () => {
 
         {step === 1 && (
           <div>
-            <h2 className="text-2xl mb-4">Your Info</h2>
+            <h2 className="text-2xl font-bold mb-4">Your Info</h2>
+            <label className="block text-sm">Name</label>
             <input
               type="text"
               name="name"
               value={formData.name}
               onChange={handleChange}
-              placeholder="Name"
-              className="w-full p-2 border border-gray-300 mb-4 rounded-lg"
+              placeholder="e.g. Stephen King"
+              className="w-full p-2 border"
             />
+
+            <label className="block mt-4 text-sm">Email</label>
             <input
               type="email"
               name="email"
               value={formData.email}
               onChange={handleChange}
-              placeholder="Email"
-              className="w-full p-2 border border-gray-300 mb-4 rounded-lg"
+              placeholder="e.g. stephen@lorem.com"
+              className="w-full p-2 border"
             />
+
+            <label className="block mt-4 text-sm">Phone Number</label>
             <input
-              type="text"
+              type="tel"
               name="phone"
               value={formData.phone}
               onChange={handleChange}
-              placeholder="Phone Number"
-              className="w-full p-2 border border-gray-300 mb-4 rounded-lg"
+              placeholder="e.g. +1 234 567 890"
+              className="w-full p-2 border"
             />
-            <div className="flex justify-between">
+            <div className="flex justify-between mt-8">
               <button
                 className="bg-gray-400 text-white px-4 py-2 rounded-lg cursor-not-allowed"
                 disabled
@@ -108,18 +115,44 @@ const MultiStepForm = () => {
 
         {step === 2 && (
           <div>
-            <h2 className="text-2xl mb-4">Select Plan</h2>
-            <select
-              name="plan"
-              value={formData.plan}
+            <h2 className="text-2xl font-bold mb-4">Investment Details</h2>
+
+            <label className="block text-sm">
+              How much money do you want to invest?
+            </label>
+            <input
+              type="number"
+              name="investmentAmount"
+              value={formData.investmentAmount}
               onChange={handleChange}
-              className="w-full p-2 border border-gray-300 mb-4 rounded-lg"
-            >
-              <option value="">Select your plan</option>
-              <option value="basic">Basic</option>
-              <option value="premium">Premium</option>
-            </select>
-            <div className="flex justify-between">
+              placeholder="e.g. $10,000"
+              className="w-full p-2 border"
+            />
+
+            <label className="block mt-4 text-sm">
+              Which stocks would you like to invest in?
+            </label>
+            <input
+              type="text"
+              name="stockPreference"
+              value={formData.stockPreference}
+              onChange={handleChange}
+              placeholder="e.g. Tesla, Apple"
+              className="w-full p-2 border"
+            />
+
+            <label className="block mt-4 text-sm">
+              What is your investment timeline?
+            </label>
+            <input
+              type="text"
+              name="investmentTimeline"
+              value={formData.investmentTimeline}
+              onChange={handleChange}
+              placeholder="e.g. 5 years"
+              className="w-full p-2 border"
+            />
+            <div className="flex justify-between mt-8">
               <button
                 onClick={handlePrevious}
                 className="bg-gray-500 text-white px-4 py-2 rounded-lg"
@@ -138,15 +171,30 @@ const MultiStepForm = () => {
 
         {step === 3 && (
           <div>
-            <h2 className="text-2xl mb-4">Add-ons</h2>
-            <textarea
-              name="addons"
-              value={formData.addons}
+            <h2 className="text-2xl font-bold mb-4">Market Analysis</h2>
+
+            <label className="block text-sm">
+              Do you follow any market trends?
+            </label>
+            <input
+              type="text"
+              name="marketAnalysis"
+              value={formData.marketAnalysis}
               onChange={handleChange}
-              placeholder="Add-ons"
-              className="w-full p-2 border border-gray-300 mb-4 rounded-lg"
+              placeholder="e.g. Yes, following the technology sector"
+              className="w-full p-2 border"
             />
-            <div className="flex justify-between">
+
+            <label className="block mt-4 text-sm">
+              How do you analyze stock performance?
+            </label>
+            <input
+              type="text"
+              name="analysisMethod"
+              placeholder="e.g. Fundamental or Technical Analysis"
+              className="w-full p-2 border"
+            />
+            <div className="flex justify-between mt-8">
               <button
                 onClick={handlePrevious}
                 className="bg-gray-500 text-white px-4 py-2 rounded-lg"
@@ -165,14 +213,29 @@ const MultiStepForm = () => {
 
         {step === 4 && (
           <div>
-            <h2 className="text-2xl mb-4">Summary</h2>
-            <ul>
-              <li>Name: {formData.name}</li>
-              <li>Email: {formData.email}</li>
-              <li>Phone: {formData.phone}</li>
-              <li>Plan: {formData.plan}</li>
-              <li>Add-ons: {formData.addons}</li>
-            </ul>
+            <h2 className="text-2xl font-bold mb-4">Summary</h2>
+            <p>
+              <strong>Name:</strong> {formData.name}
+            </p>
+            <p>
+              <strong>Email:</strong> {formData.email}
+            </p>
+            <p>
+              <strong>Phone:</strong> {formData.phone}
+            </p>
+            <p>
+              <strong>Investment Amount:</strong> {formData.investmentAmount}
+            </p>
+            <p>
+              <strong>Stock Preference:</strong> {formData.stockPreference}
+            </p>
+            <p>
+              <strong>Investment Timeline:</strong>{" "}
+              {formData.investmentTimeline}
+            </p>
+            <p>
+              <strong>Market Analysis:</strong> {formData.marketAnalysis}
+            </p>
             <div className="flex justify-between mt-4">
               <button
                 onClick={handlePrevious}
