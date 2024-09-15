@@ -21,9 +21,9 @@ const Navbar = () => {
 
 
   return (
-    <>
+    <div className="bg-white w-full fixed z-50">
       {/* Navbar */}
-      <header className="w-full fixed px-8 py-6 flex items-center justify-between">
+      <header className="w-full bg-white fixed px-8 py-6 flex items-center justify-between">
         <div className="flex items-center">
           <h1 className="text-2xl font-bold text-purple-500">CapitalCoach</h1>
         </div>
@@ -90,7 +90,7 @@ const Navbar = () => {
           </div>
         </div>
       </div>
-    </>
+    </div>
   );
 };
 
