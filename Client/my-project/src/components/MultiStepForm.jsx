@@ -1,5 +1,6 @@
 import React, { useState } from "react";
 import { motion } from "framer-motion";
+import { Link } from "react-router-dom";
 
 const MultiStepForm = () => {
   const [step, setStep] = useState(1);
@@ -243,12 +244,13 @@ const MultiStepForm = () => {
               >
                 Previous
               </button>
-              <button
+              <Link
+                to="/finance-assistant"
                 onClick={() => alert("Form submitted")}
                 className="bg-green-500 text-white px-4 py-2 rounded-lg"
               >
                 Submit
-              </button>
+              </Link>
             </div>
           </div>
         )}
